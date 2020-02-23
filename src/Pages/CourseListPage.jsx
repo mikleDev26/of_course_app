@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { addCourse } from '../Redux/actions';
 import styles from './CourseListPage.module.css';
+import Loading from '../Components/Loading/Loading';
 
 
 function CourseListPage(props) {
-  const { courses, dispatch } = props;
+  const { courses, dispatch, loading } = props;
   const [courseName, setCourseName] = useState('');
 
   function handleSubmit(e) {
+    if(loading) return;
     e.preventDefault();
     dispatch(addCourse(courseName));
     setCourseName('');
@@ -27,7 +29,12 @@ function CourseListPage(props) {
                 placeholder='enter course name'
               />
           </div>
-          <input className={styles.submitBtn} type="submit" value="Create Course" />
+          <button className={styles.submitBtn} type="submit">
+           {
+             loading ? <Loading tiny /> : 'Create Course'
+           } 
+          </button>
+          
         </form>  
       </div>
       { courses.length === 0 ? (
@@ -50,6 +57,7 @@ function CourseListPage(props) {
 
 const mapStateToProps = (state) => ({
   courses: state.courses,
+  loading: state.fetching,
 });
 
 export default connect(mapStateToProps)(CourseListPage)
