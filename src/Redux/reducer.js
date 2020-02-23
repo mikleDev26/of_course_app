@@ -1,9 +1,20 @@
 import produce from 'immer';
-import { ADD_COURSE_BEGIN, ADD_COURSE_SUCCESS, ADD_COURSE_ERROR } from './actions'; 
+import { 
+  ADD_COURSE_BEGIN, 
+  ADD_COURSE_SUCCESS, 
+  // ADD_COURSE_ERROR,
+  LOAD_COURSES_ERROR,
+  LOAD_COURSES_BEGIN,
+  LOAD_COURSES_SUCCESS, 
+
+} from './actions'; 
 
 const initialState = {
+  coursesLoading: false,
+  coursesLError: null,
   fetching: false,
-  courses: []
+  courses: [],
+  error: null
 };
 
 // export default function reducer(state = initialState, action) {
@@ -22,6 +33,18 @@ const reducer = produce((draft, action) => {
       draft.courses.unshift(action.payload);
       draft.fetching = false;
       return;
+    case LOAD_COURSES_BEGIN:
+      draft.coursesLoading = true;
+      return;
+    case LOAD_COURSES_SUCCESS:
+      draft.courses = action.payload;
+      draft.coursesLoading = false;
+      return;
+    case LOAD_COURSES_ERROR:
+      draft.coursesLoading = false;
+      draft.coursesLError = action.error;
+      return;
+
     default:
       return;
   }

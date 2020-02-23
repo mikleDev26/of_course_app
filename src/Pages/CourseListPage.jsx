@@ -6,7 +6,13 @@ import Loading from '../Components/Loading/Loading';
 
 
 function CourseListPage(props) {
-  const { courses, dispatch, loading } = props;
+  const { 
+    courses, 
+    dispatch, 
+    loading,
+    coursesLoading,
+    coursesError
+     } = props;
   const [courseName, setCourseName] = useState('');
 
   function handleSubmit(e) {
@@ -58,6 +64,8 @@ function CourseListPage(props) {
 const mapStateToProps = (state) => ({
   courses: state.courses,
   loading: state.fetching,
+  coursesLoading: state.coursesLoading,
+  coursesError: state.coursesError,
 });
 
 export default connect(mapStateToProps)(CourseListPage)
