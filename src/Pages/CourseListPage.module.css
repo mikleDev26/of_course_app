@@ -1,0 +1,66 @@
+.wrapper {
+  width: 100%;
+  max-width: 940px;
+  margin: 0 auto;
+  color: #ffffff;
+}
+
+.form {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.inputGroup,
+.inputGroup .input {
+  width: 100%;
+}
+
+.input {
+  padding: 16px 0;
+  border: none;
+  border-radius: 3px;
+  font-size: 1.1rem;
+  color: #ffffff;
+  background: rgba(255, 255,255, .25);
+}
+
+.input:focus,
+.submitBtn:focus {
+  outline: none;
+}
+
+.submitBtn {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  margin: 5px 0;
+  color: #ffffff;
+  font-size: 12px;
+  text-transform: uppercase;
+  border-radius: 3px;
+  background-color: #ffffff;
+  border: none;
+  background: #56CCF2;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #2F80ED, #56CCF2);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #2F80ED, #56CCF2); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+.submitBtn:hover {
+  cursor: pointer;
+}
+
+.coursesList {
+  width: 100%;
+  max-width: 500px;
+  list-style-type: none;
+  margin: 0 auto;
+  padding: 0;
+  padding: 15px 0 0 5px;
+}
+
+.courseItem {
+  margin-bottom: 10px;
+  text-align: left;
+}
