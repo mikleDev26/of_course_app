@@ -1,14 +1,17 @@
 import React from 'react';
-
-import './App.css';
+import { Router, Redirect } from '@reach/router';
 import CourseListPage from './Pages/CourseListPage';
+
 
 function App() {
   return (
     <div className="App">
-      <CourseListPage />
+      <Router>
+        <Redirect noThrow from="/" to="/courses" />
+        <CourseListPage path="/courses" />
+      </Router>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

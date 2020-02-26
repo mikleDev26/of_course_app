@@ -1,62 +1,55 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { addCourse } from '../Redux/actions';
+import Modal from 'react-modal';
 import styles from './CourseListPage.module.css';
 import Loading from '../Components/Loading/Loading';
+import { loadCourses, openNewCourseModal, closeNewCourseModal } from '../Redux/actions';
+import NewCourse from '../Components/NewCourse/NewCourse';
+
 
 
 function CourseListPage(props) {
   const { 
     courses, 
-    dispatch, 
-    loading,
     coursesLoading,
-    coursesError
+    coursesError,
+    isModalOpen,
+    openNewCourseModal,
+    closeNewCourseModal,
+    loadCourses,
      } = props;
-  const [courseName, setCourseName] = useState('');
 
-  function handleSubmit(e) {
-    if(loading) return;
-    e.preventDefault();
-    dispatch(addCourse(courseName));
-    setCourseName('');
+  useEffect(() => {
+    loadCourses();
+  }, [loadCourses]);
+
+  console.log(isModalOpen);
+
+  if(coursesLoading) {
+    return <Loading small />;
   }
+
   return (
     <div className={styles.wrapper}>
-      <div>
-        <h1>Create your first course</h1>
-        <form onSubmit={handleSubmit} className={styles.form}>
-          <div className={styles.inputGroup}>
-              <input 
-                className={styles.input}
-                value={courseName} 
-                onChange={(e) => setCourseName(e.target.value)} 
-                type='text'
-                placeholder='enter course name'
-              />
-          </div>
-          <button className={styles.submitBtn} type="submit">
-           {
-             loading ? <Loading tiny /> : 'Create Course'
-           } 
-          </button>
-          
-        </form>  
-      </div>
-      { courses.length === 0 ? (
-        <center>
-          <p>There are no courses so far</p>
-        </center>
-       ) : (
-        <div>
+      {!courses.length ? (
+        <NewCourse />
+      ) : (
+        <div className={styles.courseListWrapper}>
+          <h1>Your coursers</h1>
+          <button className={styles.newCourseBtn} onClick={openNewCourseModal}>new course</button>
           <ul className={styles.coursesList}>
             {courses.map(course => (
-              <li className={styles.courseItem} key={course.id}>{course.name}</li>)
+              <li className={styles.courseItem} key={course.id}>
+                <span>{course.name}</span>
+                <span className={styles.price}>{course.price} $</span>
+              </li>)
             )}
           </ul>
+          <Modal portalClassName={styles.modal} isOpen={isModalOpen} onRequestClose={closeNewCourseModal}>
+            <NewCourse />
+          </Modal>
         </div>
-      )
-    }
+      )}
     </div>
   );
 }
@@ -66,7 +59,14 @@ const mapStateToProps = (state) => ({
   loading: state.fetching,
   coursesLoading: state.coursesLoading,
   coursesError: state.coursesError,
+  isModalOpen: state.newCourseModalOpen,
 });
 
-export default connect(mapStateToProps)(CourseListPage)
+const mapDispatch = {
+  openNewCourseModal,
+  loadCourses,
+  closeNewCourseModal,
+}
+
+export default connect(mapStateToProps, mapDispatch)(CourseListPage)
 

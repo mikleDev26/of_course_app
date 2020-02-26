@@ -5,7 +5,9 @@ import {
   // ADD_COURSE_ERROR,
   LOAD_COURSES_ERROR,
   LOAD_COURSES_BEGIN,
-  LOAD_COURSES_SUCCESS, 
+  LOAD_COURSES_SUCCESS,
+  OPEN_NEW_COURSE_MODAL,
+  CLOSE_NEW_COURSE_MODAL, 
 
 } from './actions'; 
 
@@ -14,7 +16,8 @@ const initialState = {
   coursesLError: null,
   fetching: false,
   courses: [],
-  error: null
+  error: null,
+  newCourseModalOpen: false,
 };
 
 // export default function reducer(state = initialState, action) {
@@ -24,7 +27,6 @@ const initialState = {
 // }
 
 const reducer = produce((draft, action) => {
-  // eslint-disable-next-line default-case
   switch(action.type) {
     case ADD_COURSE_BEGIN:
       draft.fetching = true;
@@ -32,6 +34,7 @@ const reducer = produce((draft, action) => {
     case ADD_COURSE_SUCCESS:
       draft.courses.unshift(action.payload);
       draft.fetching = false;
+      draft.newCourseModalOpen = false;
       return;
     case LOAD_COURSES_BEGIN:
       draft.coursesLoading = true;
@@ -43,6 +46,13 @@ const reducer = produce((draft, action) => {
     case LOAD_COURSES_ERROR:
       draft.coursesLoading = false;
       draft.coursesLError = action.error;
+      return;
+    case OPEN_NEW_COURSE_MODAL: 
+      draft.newCourseModalOpen = true;
+      return;
+    case CLOSE_NEW_COURSE_MODAL:
+      draft.newCourseModalOpen = false;
+      draft.error = null;
       return;
 
     default:

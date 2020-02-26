@@ -1,12 +1,8 @@
 
 
-export function createCourse(name) {
-  return handleFetch('/courses', { name }, 'POST');
-}
+export const createCourse = (name, price) => postData('/courses', { name, price }, 'POST');
 
-export function getCourses() {
-  return handleFetch('/courses', {}, 'GET' );
-}
+export const getCourses = () => getData('/courses');
 
 // the old way whith then
  function postData(url = ``, data = {}, method = 'POST') {
@@ -19,15 +15,8 @@ export function getCourses() {
   }).then(response => response.json())
 }
 
-// the new way with async await
-export async function handleFetch(url = ``, data = {}, method = 'POST') {
-  const response = await fetch(url, {
-    method: method,
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  });
+async function getData(url = ``) {
+  const response = await fetch(url);
   const result = await response.json();
   return result;
 }
