@@ -18,6 +18,7 @@ const initialState = {
   courses: [],
   error: null,
   newCourseModalOpen: false,
+  lessons: [],
 };
 
 // export default function reducer(state = initialState, action) {

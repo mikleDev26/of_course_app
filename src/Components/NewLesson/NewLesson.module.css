@@ -1,0 +1,22 @@
+.newLessonBtn,
+.editForm > input {
+  width: 100%;
+  display: block;
+  max-width: 450px;
+  background: rgba(255,255,255, 0.3);
+  border: 1px dashed #56CCF2;
+  transition: all 0.3s;
+  padding: 12px 0;
+  border-radius: 3px;
+  color: aliceblue;
+  margin: 0 auto;
+}
+
+.newLessonBtn:hover {
+  border-color: #2F80ED;
+  cursor: pointer;
+}
+
+.newLessonBtn:focus {
+  outline: none;
+}

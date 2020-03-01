@@ -1,0 +1,20 @@
+.header {
+  color: #ffffff;
+  padding: 15px;
+  font-size: 19px;
+  background: -webkit-linear-gradient(to right, #56CCF2 ,#2F80ED);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #56CCF2, #2F80ED); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.content {
+  margin-top: 10px;
+  padding: 15px;
+  background: rgba(255,255,255, .5);
+  color: #414141;
+}
+
+
+
+@media only screen and (max-width: 900px) {
+
+}

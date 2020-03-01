@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { Link } from '@reach/router'; 
 import Modal from 'react-modal';
 import styles from './CourseListPage.module.css';
 import Loading from '../Components/Loading/Loading';
@@ -39,10 +40,13 @@ function CourseListPage(props) {
           <button className={styles.newCourseBtn} onClick={openNewCourseModal}>new course</button>
           <ul className={styles.coursesList}>
             {courses.map(course => (
-              <li className={styles.courseItem} key={course.id}>
+              <Link to={`/courses/${course.id}`}  key={course.id}>
+              <li className={styles.courseItem}>
                 <span>{course.name}</span>
                 <span className={styles.price}>{course.price} $</span>
-              </li>)
+              </li>
+              </Link>
+            )
             )}
           </ul>
           <Modal portalClassName={styles.modal} isOpen={isModalOpen} onRequestClose={closeNewCourseModal}>
