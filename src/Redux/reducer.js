@@ -3,6 +3,9 @@ import {
   ADD_COURSE_BEGIN, 
   ADD_COURSE_SUCCESS, 
   // ADD_COURSE_ERROR,
+   ADD_LESSON,
+   ADD_LESSON_BEGIN ,
+   ADD_LESSON_SUCCESS,
   LOAD_COURSES_ERROR,
   LOAD_COURSES_BEGIN,
   LOAD_COURSES_SUCCESS,
@@ -55,7 +58,9 @@ const reducer = produce((draft, action) => {
       draft.newCourseModalOpen = false;
       draft.error = null;
       return;
-
+    case ADD_LESSON_SUCCESS: 
+      draft.lessons.push(action.payload)
+      return;
     default:
       return;
   }

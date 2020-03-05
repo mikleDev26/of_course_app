@@ -51,6 +51,19 @@ export function loadCourses() {
   }
 }
 
+export function addLesson(name, courseId) {
+  return dispatch => {
+    dispatch({
+      type: ADD_LESSON_SUCCESS,
+      payload: {
+        id: Math.random(),
+        name,
+        courseId
+      }
+    })
+  }
+}
+
 export function openNewCourseModal() {
   return {
     type: OPEN_NEW_COURSE_MODAL,

@@ -8,7 +8,7 @@ import styles from './CourseDetailPage.module.css';
 import NewLesson from '../../Components/NewLesson/NewLesson';
 
 function CourseDetailPage(props) {
-  const { courseId, course, loading } = props;
+  const { courseId, course, loading, lessons } = props;
   if(loading) {
     return <Loading />
   }
@@ -18,21 +18,34 @@ function CourseDetailPage(props) {
     // return <Redirect noThrow to="/" />
   }
 
+  console.log('LESSONS', lessons)
+
   return (
     <div className={styles.detailsWrapper}>
        <header className={styles.header}>
           {course.name}
        </header>
        <div className={styles.content}>
-         <NewLesson />
+         {lessons.length > 0 && (
+           <ul>
+             {lessons.map(lesson => (
+               <li key={lesson.id}>{lesson.name}</li>
+             ))}
+           </ul>
+         )}
+         <NewLesson courseId={courseId} />
        </div>
     </div>
   );
 }
 
-const mapStateToProps = (state, ownProps) => ({
-  loading: state.coursesLoading,
-  course: state.courses.find(c => c.id === parseInt(ownProps.courseId, 10)),
-})
+const mapStateToProps = (state, ownProps) => {
+  const courseId = parseInt(ownProps.courseId, 10);
+  return {
+    loading: state.coursesLoading,
+    lessons: state.lessons.filter(lessons => +lessons.courseId === courseId),
+    course: state.courses.find(c => c.id === courseId),
+  }
+}
 
 export default connect(mapStateToProps)(CourseDetailPage);
