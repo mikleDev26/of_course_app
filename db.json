@@ -28,5 +28,32 @@
       "apiId": "api",
       "id": 5
     }
+  ],
+  "lessons": [
+    {
+      "name": "fdsfdsfd",
+      "courseId": "5",
+      "id": 1
+    },
+    {
+      "name": "sdfsdfsdf",
+      "courseId": "5",
+      "id": 2
+    },
+    {
+      "name": "fdsfsdf",
+      "courseId": "5",
+      "id": 3
+    },
+    {
+      "name": "123",
+      "courseId": "5",
+      "id": 4
+    },
+    {
+      "name": "sdfsdf",
+      "courseId": "5",
+      "id": 5
+    }
   ]
 }

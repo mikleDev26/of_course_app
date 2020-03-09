@@ -2,10 +2,6 @@ import produce from 'immer';
 import { 
   ADD_COURSE_BEGIN, 
   ADD_COURSE_SUCCESS, 
-  // ADD_COURSE_ERROR,
-   ADD_LESSON,
-   ADD_LESSON_BEGIN ,
-   ADD_LESSON_SUCCESS,
   LOAD_COURSES_ERROR,
   LOAD_COURSES_BEGIN,
   LOAD_COURSES_SUCCESS,
@@ -21,9 +17,6 @@ const initialState = {
   courses: [],
   error: null,
   newCourseModalOpen: false,
-  lessons: [],
-  lessonSaveInProgress: false,
-  lessonSaveError: null,
 };
 
 // export default function reducer(state = initialState, action) {
@@ -59,9 +52,6 @@ const reducer = produce((draft, action) => {
     case CLOSE_NEW_COURSE_MODAL:
       draft.newCourseModalOpen = false;
       draft.error = null;
-      return;
-    case ADD_LESSON_SUCCESS: 
-      draft.lessons.push(action.payload)
       return;
     default:
       return;

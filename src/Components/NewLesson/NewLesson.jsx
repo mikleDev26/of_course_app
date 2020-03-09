@@ -37,6 +37,7 @@ function NewLesson(props) {
             type="text" 
             value={title}
             onChange={e => setTitle(e.target.value)}
+            onBlur={reset}
             placeholder="Name the lesson"
           />
       </form>

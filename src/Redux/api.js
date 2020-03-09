@@ -2,9 +2,15 @@
 
 const PREFIX = '/api'
 
-export const createCourse = (name, price) => postData(PREFIX + '/courses', { name, price }, 'POST');
+export const createCourse = (name, price) => {
+   return postData(PREFIX + '/courses', { name, price }, 'POST');
+ };
 
 export const getCourses = () => getData('/courses');
+
+export const createLesson = (name, courseId) => {
+  return postData('/lessons', {name, courseId}, 'POST')
+}
 
 // the old way whith then
  function postData(url = ``, data = {}, method = 'POST') {
@@ -16,6 +22,7 @@ export const getCourses = () => getData('/courses');
     body: JSON.stringify(data),
   }).then(response => response.json())
 }
+
 
 async function getData(url = ``) {
   const response = await fetch(PREFIX + url);
