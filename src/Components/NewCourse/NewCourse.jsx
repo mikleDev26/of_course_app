@@ -63,9 +63,9 @@ function NewCourse(props) {
 }
 
 const mapStateToProps = (state) => ({
-  coursesLoading: state.coursesLoading,
-  coursesError: state.coursesError,
-  loading: state.fetching,
+  coursesLoading: state.courses.coursesLoading,
+  coursesError: state.courses.coursesError,
+  loading: state.courses.fetching,
 });
 
 export default connect(mapStateToProps)(NewCourse);

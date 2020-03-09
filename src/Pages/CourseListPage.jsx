@@ -59,11 +59,11 @@ function CourseListPage(props) {
 }
 
 const mapStateToProps = (state) => ({
-  courses: state.courses,
-  loading: state.fetching,
-  coursesLoading: state.coursesLoading,
-  coursesError: state.coursesError,
-  isModalOpen: state.newCourseModalOpen,
+  courses: state.courses.courses,
+  loading: state.courses.fetching,
+  coursesLoading: state.courses.coursesLoading,
+  coursesError: state.courses.coursesError,
+  isModalOpen: state.courses.newCourseModalOpen,
 });
 
 const mapDispatch = {

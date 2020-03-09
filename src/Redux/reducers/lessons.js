@@ -3,10 +3,11 @@ import {
   ADD_COURSE_BEGIN, 
   ADD_COURSE_SUCCESS, 
   // ADD_COURSE_ERROR,
+   GET_LESSONS_SUCCESS,
    ADD_LESSON,
    ADD_LESSON_BEGIN ,
    ADD_LESSON_SUCCESS,
-} from './actions'; 
+} from '../actions'; 
 
 const initialState = {
   lessons: [],
@@ -27,6 +28,9 @@ const reducer = produce((draft, action) => {
       return;
     default:
       return;
+      case GET_LESSONS_SUCCESS:
+        draft.lessons = action.payload;
+        return;
   }
 }, initialState);
 

@@ -1,14 +1,23 @@
-import React from 'react';
+import React, { useEffect }  from 'react';
 // import { Redirect } from '@reach/router';
 import { connect } from 'react-redux';
 import Loading from '../../Components/Loading/Loading';
 import NotFoundPage from '../NotFoundPage';
+import { loadLessons } from '../../Redux/actions';
+
+// Selectors
+import { getLessonsByCourse, getCourseById } from '../../Redux/selectors';
 
 import styles from './CourseDetailPage.module.css';
 import NewLesson from '../../Components/NewLesson/NewLesson';
 
 function CourseDetailPage(props) {
-  const { courseId, course, loading, lessons } = props;
+  const { courseId, course, loading, lessons, loadLessons } = props;
+
+  useEffect(() => {
+    loadLessons();
+  }, [loadLessons])
+
   if(loading) {
     return <Loading />
   }
@@ -40,12 +49,11 @@ function CourseDetailPage(props) {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const courseId = parseInt(ownProps.courseId, 10);
   return {
-    loading: state.coursesLoading,
-    lessons: state.lessons.filter(lessons => +lessons.courseId === courseId),
-    course: state.courses.find(c => c.id === courseId),
+    loading: state.courses.coursesLoading,
+    lessons: getLessonsByCourse(state, ownProps),
+    course: getCourseById(state, ownProps),
   }
 }
 
-export default connect(mapStateToProps)(CourseDetailPage);
+export default connect(mapStateToProps, {loadLessons})(CourseDetailPage);

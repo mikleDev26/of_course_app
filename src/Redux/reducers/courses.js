@@ -8,7 +8,7 @@ import {
   OPEN_NEW_COURSE_MODAL,
   CLOSE_NEW_COURSE_MODAL, 
 
-} from './actions'; 
+} from '../actions'; 
 
 const initialState = {
   coursesLoading: false,

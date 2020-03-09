@@ -5,7 +5,7 @@ import App from './App';
 import Modal from 'react-modal';
 import { createStore , applyMiddleware, compose} from 'redux';
 import { Provider } from 'react-redux'; 
-import reducer from './Redux/reducer';
+import reducer from './Redux/reducers';
 import thunk from 'redux-thunk';
 
 const composeEnhancers =

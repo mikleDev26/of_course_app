@@ -1,4 +1,4 @@
-import { createCourse, getCourses, createLesson } from './api';
+import { createCourse, getCourses, createLesson, getLessons } from './api';
 export const ADD_COURSE = 'ADD_COURSE';
 export const ADD_COURSE_BEGIN = 'ADD_COURSE_BEGIN';
 export const ADD_COURSE_SUCCESS = 'ADD_COURSE_SUCCESS';
@@ -7,6 +7,7 @@ export const ADD_LESSON_BEGIN = 'ADD_LESSON_BEGIN';
 export const ADD_LESSON_SUCCESS = 'ADD_LESSON_SUCCESS';
 export const ADD_LESSON_ERROR = 'ADD_LESSON_ERROR';
 export const ADD_COURSE_ERROR = 'ADD_COURSE_ERROR';
+export const GET_LESSONS_SUCCESS = 'GET_LESSONS_SUCCESS';
 export const LOAD_COURSES_BEGIN = 'LOAD_COURSES_BEGIN';
 export const LOAD_COURSES_SUCCESS = 'LOAD_COURSES_SUCCESS';
 export const LOAD_COURSES_ERROR = 'LOAD_COURSES_ERROR'; 
@@ -49,6 +50,18 @@ export function loadCourses() {
       })
       .catch(error => {
         dispatch({ type: LOAD_COURSES_ERROR, error })
+      })
+  }
+}
+
+export function loadLessons() {
+  return dispatch => {
+    getLessons()
+      .then(lessons => {
+        dispatch({
+          type: GET_LESSONS_SUCCESS,
+          payload: lessons.reverse()
+        });
       })
   }
 }

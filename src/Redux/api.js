@@ -7,6 +7,7 @@ export const createCourse = (name, price) => {
  };
 
 export const getCourses = () => getData('/courses');
+export const getLessons = () => getData('/lessons');
 
 export const createLesson = (name, courseId) => {
   return postData('/lessons', {name, courseId}, 'POST')
