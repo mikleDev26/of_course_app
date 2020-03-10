@@ -1,16 +1,21 @@
 import produce from 'immer';
 import { 
-  ADD_COURSE_BEGIN, 
-  ADD_COURSE_SUCCESS, 
-  // ADD_COURSE_ERROR,
+   GET_LESSONS,
    GET_LESSONS_SUCCESS,
-   ADD_LESSON,
+   GET_LESSONS_ERROR,
    ADD_LESSON_BEGIN ,
    ADD_LESSON_SUCCESS,
+   ADD_LESSON_ERROR,
+   DELETE_LESSON_SUCCESS,
+   SAVE_LESSON_BEGIN ,
+   SAVE_LESSON_SUCCESS,
+   SAVE_LESSON_ERROR,
 } from '../actions'; 
 
 const initialState = {
-  lessons: [],
+  lessons: {},
+  gettingLessons: false,
+  gettingLessonsError: null,
   lessonSaveInProgress: false,
   lessonSaveError: null,
 };
@@ -23,14 +28,36 @@ const initialState = {
 
 const reducer = produce((draft, action) => {
   switch(action.type) {
-    case ADD_LESSON_SUCCESS: 
-      draft.lessons.push(action.payload)
+    case GET_LESSONS:
+      draft.gettingLessons = true;
+      draft.gettingLessonsError = null;
       return;
+    case GET_LESSONS_SUCCESS:
+      // draft.lessons = action.payload;
+      action.payload.forEach(lesson => {
+        draft.lessons[lesson.id] = lesson;
+      });
+      draft.gettingLessons = false;
+      return;
+      case GET_LESSONS_ERROR:
+        draft.gettingLessonsError = action.payload;
+        draft.gettingLessons = false;
+        return;
+      case ADD_LESSON_SUCCESS: 
+        draft.lessons[action.payload.id] = action.payload;
+        return;
+        case SAVE_LESSON_SUCCESS: 
+        draft.lessons[action.payload.id] = action.payload;
+        return;
+      case DELETE_LESSON_SUCCESS:
+       delete draft.lessons[action.payload.id];
+       return;
+      case SAVE_LESSON_ERROR:
+        draft.gettingLessonsError = action.payload;
+        draft.gettingLessons = false;
+        return;
     default:
       return;
-      case GET_LESSONS_SUCCESS:
-        draft.lessons = action.payload;
-        return;
   }
 }, initialState);
 

@@ -3,46 +3,76 @@ import React, { useEffect }  from 'react';
 import { connect } from 'react-redux';
 import Loading from '../../Components/Loading/Loading';
 import NotFoundPage from '../NotFoundPage';
-import { loadLessons } from '../../Redux/actions';
+import { loadLessons, loadCourses, addLesson, saveLesson} from '../../Redux/actions';
 
 // Selectors
 import { getLessonsByCourse, getCourseById } from '../../Redux/selectors';
 
 import styles from './CourseDetailPage.module.css';
-import NewLesson from '../../Components/NewLesson/NewLesson';
+import Lesson from '../../Components/Lesson/Lesson';
 
 function CourseDetailPage(props) {
-  const { courseId, course, loading, lessons, loadLessons } = props;
+  const { courseId, 
+          course, 
+          loadCourses, 
+          loadingCourse, 
+          lessons, 
+          loadLessons, 
+          addLesson, 
+          loadingLessons,
+          saveLesson } = props;
 
   useEffect(() => {
-    loadLessons();
-  }, [loadLessons])
+    loadCourses();
+    loadLessons(courseId);
+  }, [courseId, loadCourses, loadLessons])
 
-  if(loading) {
+  if(loadingCourse || loadingLessons) {
     return <Loading />
   }
 
-  if(!course) {
-    return <NotFoundPage />
-    // return <Redirect noThrow to="/" />
-  }
+  // if(!course) {
+  //   return <NotFoundPage />
+  //   // return <Redirect noThrow to="/" />
+  // }
 
-  console.log('LESSONS', lessons)
+  console.log('COURSE', course)
 
   return (
     <div className={styles.detailsWrapper}>
        <header className={styles.header}>
-          {course.name}
+          {course && course.name}
        </header>
        <div className={styles.content}>
          {lessons.length > 0 && (
-           <ul>
+           <ul className={styles.lessons}>
              {lessons.map(lesson => (
-               <li key={lesson.id}>{lesson.name}</li>
+               <li key={lesson.id}>
+                <Lesson  
+                  lesson={lesson} 
+                  className={styles.lessonsItem}
+                  onSubmit={name => 
+                    saveLesson({
+                      ...lesson,
+                      name,
+                    })
+                  }
+                  >
+                  {(edit, remove) => (<div className={styles.lessonsItem}>
+                    <span>{lesson.name}</span>
+                    <button onClick={() => edit(lesson.name)} className={styles.editLessonBtn}>Edit</button>
+                    <button onClick={remove} className={styles.deleteLessonBtn}>Delete</button>
+                  </div>)}
+                </Lesson>
+               </li>
              ))}
            </ul>
          )}
-         <NewLesson courseId={courseId} />
+         <Lesson onSubmit={title => addLesson(title, courseId)} className={styles.newLessonBtn}>
+           {(edit) => (
+             <button className={styles.newLessonBtn} onClick={edit} >New Lesson</button>
+           )}
+         </Lesson>
        </div>
     </div>
   );
@@ -50,10 +80,11 @@ function CourseDetailPage(props) {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    loading: state.courses.coursesLoading,
+    loadingLessons: state.lessons.gettingLessons,
+    loadingCourse: state.courses.coursesLoading,
     lessons: getLessonsByCourse(state, ownProps),
     course: getCourseById(state, ownProps),
   }
 }
 
-export default connect(mapStateToProps, {loadLessons})(CourseDetailPage);
+export default connect(mapStateToProps, {loadLessons, loadCourses, addLesson, saveLesson})(CourseDetailPage);

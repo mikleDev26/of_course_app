@@ -13,7 +13,38 @@
   color: #414141;
 }
 
+.lessons {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  list-style-type: none;
+  padding: 0;
+}
 
+.lessonsItem {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid #ddd;
+  padding: 9px 12px;
+  margin-bottom: 5px;
+}
+
+.lessonsItem > *:first-child {
+  flex: 1;
+}
+
+.lessonsItem:hover .editLessonBtn,
+.lessonsItem:hover .deleteLessonBtn {
+  opacity: 1;
+}
+
+.editLessonBtn, .deleteLessonBtn {
+  background: none;
+  border: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+  cursor: pointer;
+}
 
 @media only screen and (max-width: 900px) {
 

@@ -1,24 +1,37 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { addLesson } from '../../Redux/actions';
 import { connect } from 'react-redux';
+import { deleteLesson } from '../../Redux/actions';
 import styles from './NewLesson.module.css';
 
 
-function NewLesson(props) {
-  const { addLesson, courseId } = props;   
+function Lesson(props) {
+
+  const { onSubmit, lesson, children, deleteLesson } = props;   
+
+  const initialValue = lesson ? lesson.name : '';
+
   const [editing, setEditing] = useState(false);
-  const [title, setTitle] = useState('');
+  const [title, setTitle] = useState(initialValue);
 
   const inputRef = useRef();
 
   function reset(){
-    setTitle('');
+    setTitle(initialValue);
     setEditing(false);
+  }
+
+  function beginEditing() {
+    setEditing(true);
+  }
+
+  function perfomDelete() {
+    deleteLesson(lesson)
   }
 
   function commitEdit(e) {
     e.preventDefault();
-    addLesson(title, courseId);
+    onSubmit(title);
+    // addLesson(title, courseId);
     reset();
   }
 
@@ -42,9 +55,10 @@ function NewLesson(props) {
           />
       </form>
     ) : (
-      <button className={styles.newLessonBtn} onClick={() => setEditing(true)} >New Lesson</button>
+      children(beginEditing, perfomDelete)
+      // <button className={styles.newLessonBtn} onClick={() => setEditing(true)} >New Lesson</button>
     )
   );
 }
 
-export default connect(null, { addLesson })(NewLesson);
+export default connect(null, { deleteLesson })(Lesson);

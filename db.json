@@ -46,34 +46,9 @@
       "id": 3
     },
     {
-      "name": "123",
-      "courseId": "5",
-      "id": 4
-    },
-    {
-      "name": "sdfsdf",
-      "courseId": "5",
-      "id": 5
-    },
-    {
       "name": "123123",
       "courseId": "4",
       "id": 6
-    },
-    {
-      "name": "sdfdsf",
-      "courseId": "4",
-      "id": 7
-    },
-    {
-      "name": "rrerere",
-      "courseId": "5",
-      "id": 8
-    },
-    {
-      "name": "fsdfdsfdsfdsfdssdfsddsf",
-      "courseId": "5",
-      "id": 9
     },
     {
       "name": "22323",
@@ -81,19 +56,19 @@
       "id": 10
     },
     {
-      "name": "43434",
-      "courseId": "5",
-      "id": 11
+      "name": "1",
+      "courseId": "3",
+      "id": 15
     },
     {
-      "name": "fdsfsdf",
-      "courseId": "5",
-      "id": 12
+      "name": "2",
+      "courseId": "3",
+      "id": 16
     },
     {
-      "name": "23",
-      "courseId": "5",
-      "id": 13
+      "name": "34",
+      "courseId": "3",
+      "id": 17
     }
   ]
 }
