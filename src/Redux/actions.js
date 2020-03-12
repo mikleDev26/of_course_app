@@ -130,13 +130,24 @@ export function saveLesson(lesson) {
   };
 }
 
+let saveTimer = null;
+
 export const setLessonMarkDown = (lesson, markdown) => {
-  return {
-    type: SET_LESSON_MARKDOWN,
-    payload: {
-      lesson,
-      markdown,
+  return (dispatch, getState) => {
+    dispatch({
+      type: SET_LESSON_MARKDOWN,
+      payload: {
+        lesson,
+        markdown,
+      }
+    });
+    if(saveTimer) {
+      clearTimeout(saveTimer);
     }
+    saveTimer = setTimeout(() => {
+      const latestLesson =  getState().lessons.lessons[lesson.id]
+      dispatch(saveLesson(latestLesson));
+    }, 1000);
   };
 }
 
