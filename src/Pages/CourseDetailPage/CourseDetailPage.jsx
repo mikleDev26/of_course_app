@@ -1,5 +1,5 @@
 import React, { useEffect }  from 'react';
-// import { Redirect } from '@reach/router';
+import { Redirect, Link, Match } from '@reach/router';
 import { connect } from 'react-redux';
 import Loading from '../../Components/Loading/Loading';
 import NotFoundPage from '../NotFoundPage';
@@ -20,7 +20,8 @@ function CourseDetailPage(props) {
           loadLessons, 
           addLesson, 
           loadingLessons,
-          saveLesson } = props;
+          saveLesson,
+          children, } = props;
 
   useEffect(() => {
     loadCourses();
@@ -47,10 +48,14 @@ function CourseDetailPage(props) {
          {lessons.length > 0 && (
            <ul className={styles.lessons}>
              {lessons.map(lesson => (
-               <li key={lesson.id}>
+               <Match key={lesson.id} path={`lessons/${lesson.id}`}>
+                 {({ match }) => {
+                 const className = `${styles.lessonsItem} ${match ? styles.selected : ''}`
+                   return (
+               <li>
                 <Lesson  
                   lesson={lesson} 
-                  className={styles.lessonsItem}
+                  className={className}
                   onSubmit={name => 
                     saveLesson({
                       ...lesson,
@@ -58,13 +63,17 @@ function CourseDetailPage(props) {
                     })
                   }
                   >
-                  {(edit, remove) => (<div className={styles.lessonsItem}>
-                    <span>{lesson.name}</span>
+                  {(edit, remove) => 
+                  (<div className={className}>
+                    <Link to={`lessons/${lesson.id}`}>{lesson.name}</Link>
                     <button onClick={() => edit(lesson.name)} className={styles.editLessonBtn}>Edit</button>
                     <button onClick={remove} className={styles.deleteLessonBtn}>Delete</button>
                   </div>)}
                 </Lesson>
-               </li>
+               </li> 
+               )
+               }}
+               </Match>
              ))}
            </ul>
          )}
@@ -73,6 +82,9 @@ function CourseDetailPage(props) {
              <button className={styles.newLessonBtn} onClick={edit} >New Lesson</button>
            )}
          </Lesson>
+         <div>
+           {children}
+         </div>
        </div>
     </div>
   );

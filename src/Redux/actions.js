@@ -34,6 +34,9 @@ export const LOAD_COURSES_ERROR = 'LOAD_COURSES_ERROR';
 export const OPEN_NEW_COURSE_MODAL = 'OPEN_NEW_COURSE_MODAL'; 
 export const CLOSE_NEW_COURSE_MODAL = 'CLOSE_NEW_COURSE_MODAL';
 
+export const SET_LESSON_MARKDOWN = 'SET_LESSON_MARKDOWN';
+
+
 
 
 // export function addCourse(name) {
@@ -124,7 +127,17 @@ export function saveLesson(lesson) {
           payload: err,
         });
       })
-  }
+  };
+}
+
+export const setLessonMarkDown = (lesson, markdown) => {
+  return {
+    type: SET_LESSON_MARKDOWN,
+    payload: {
+      lesson,
+      markdown,
+    }
+  };
 }
 
 export function deleteLesson(lesson) {

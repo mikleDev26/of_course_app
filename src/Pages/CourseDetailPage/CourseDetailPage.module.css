@@ -45,6 +45,9 @@
   transition: opacity 0.3s;
   cursor: pointer;
 }
+.selected {
+  background: rgba(255,255,255, .5);
+}
 
 @media only screen and (max-width: 900px) {
 

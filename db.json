@@ -31,44 +31,16 @@
   ],
   "lessons": [
     {
-      "name": "fdsfdsfd",
+      "name": "new lesson",
       "courseId": "5",
+      "markdown": "",
       "id": 1
     },
     {
-      "name": "sdfsdfsdf",
+      "name": "my second lesson",
       "courseId": "5",
+      "markdown": "",
       "id": 2
-    },
-    {
-      "name": "fdsfsdf",
-      "courseId": "5",
-      "id": 3
-    },
-    {
-      "name": "123123",
-      "courseId": "4",
-      "id": 6
-    },
-    {
-      "name": "22323",
-      "courseId": "5",
-      "id": 10
-    },
-    {
-      "name": "1",
-      "courseId": "3",
-      "id": 15
-    },
-    {
-      "name": "2",
-      "courseId": "3",
-      "id": 16
-    },
-    {
-      "name": "34",
-      "courseId": "3",
-      "id": 17
     }
   ]
 }

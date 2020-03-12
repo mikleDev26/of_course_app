@@ -6,7 +6,12 @@ export const createCourse = (name, price) => {
    return postData(PREFIX + '/courses', { name, price });
  };
  export const createLesson = (name, courseId) => {
-   return postData(PREFIX + '/lessons', {name, courseId})
+   const newLesson = {
+     name,
+     courseId,
+     markdown: '',
+   };
+   return postData(PREFIX + '/lessons', newLesson);
  }
 
 export const getCourses = () => getData('/courses');
