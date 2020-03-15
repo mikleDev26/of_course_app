@@ -4,8 +4,20 @@ import {
   createLesson, 
   getLessons, 
   updateLesson,
-  destroyLesson, 
+  destroyLesson,
+  loginUser,
+  createUser, 
 } from './api';
+
+import axios from 'axios';
+
+export const LOGIN_BEGIN = 'LOGIN_BEGIN';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const LOGIN_ERROR = 'ADD_ERROR';
+
+export const SIGNUP_BEGIN = 'SIGNUP_BEGIN';
+export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
+export const SIGNUP_ERROR = 'SIGNUP_ERROR';
 
 export const ADD_COURSE = 'ADD_COURSE';
 export const ADD_COURSE_BEGIN = 'ADD_COURSE_BEGIN';
@@ -36,7 +48,7 @@ export const CLOSE_NEW_COURSE_MODAL = 'CLOSE_NEW_COURSE_MODAL';
 
 export const SET_LESSON_MARKDOWN = 'SET_LESSON_MARKDOWN';
 
-
+export const TOGGLE_PREVIEW_MODE = 'TOGGLE_PREVIEW_MODE';
 
 
 // export function addCourse(name) {
@@ -48,6 +60,41 @@ export const SET_LESSON_MARKDOWN = 'SET_LESSON_MARKDOWN';
 //     }
 //   }
 // }
+
+
+
+export function login(userName, password) {
+  return dispatch => {
+    dispatch({ type: LOGIN_BEGIN });
+    loginUser(userName, password)
+      .then(user => {
+        dispatch({
+          type: LOGIN_SUCCESS,
+          payload: user,
+        })
+      })
+      .catch(error => {
+        dispatch({ type: LOGIN_ERROR, payload: error });
+      });
+  };
+}
+
+export function signup(userName, password) {
+  return  async (dispatch) => {
+    dispatch({ type: SIGNUP_BEGIN });
+    try {
+      const user = await createUser(userName, password);
+      dispatch({
+        type: SIGNUP_SUCCESS,
+        payload: user,
+      });
+    } 
+    catch(error) {
+      dispatch({ type: SIGNUP_ERROR, payload: error });
+    }
+  };
+}
+
 
 export function addCourse(name, price) {
   return dispatch => {
@@ -179,5 +226,11 @@ export function openNewCourseModal() {
 export function closeNewCourseModal() {
   return {
     type: CLOSE_NEW_COURSE_MODAL,
+  }
+}
+
+export function togglePreviewMode() {
+  return {
+    type: TOGGLE_PREVIEW_MODE,
   }
 }

@@ -1,6 +1,19 @@
 
-
+import axios from 'axios';
 const PREFIX = '/api'
+
+export const loginUser = (userName, passsword) => {
+  return postData(PREFIX + '/login', {
+    userName, passsword,
+  })
+};
+
+export const createUser = (userName, passsword) => {
+  console.log('CREATE USER', userName)
+  return postData(PREFIX + '/users', {
+    userName, passsword
+  })
+}
 
 export const createCourse = (name, price) => {
    return postData(PREFIX + '/courses', { name, price });
@@ -25,14 +38,13 @@ export const updateLesson = (lesson) => {
 export const destroyLesson = (lesson) => deleteData(PREFIX + `/lessons/${lesson.id}`)
 
 // the old way whith then
- function postData(url = ``, data = {}) {
-  return fetch(url, {
-    method: 'POST',
-    headers: {
+ async function postData(url = ``, data) {
+    const response = await axios.post(url, {
+     method: 'POST',
+      headers: {
       'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data),
-  }).then(response => response.json())
+      }});
+    return response;
 }
 
 
@@ -65,3 +77,14 @@ async function getData(url = ``) {
   const result = await response.json();
   return result;
 }
+
+
+// function handleErrors(response) {
+//   if(!response.ok) {
+//      return response.json().then(body => {
+//        throw new Error(body.message);
+//      });
+//   } else {
+//     return response;
+//   }
+// }

@@ -3,7 +3,7 @@ import { Redirect, Link, Match } from '@reach/router';
 import { connect } from 'react-redux';
 import Loading from '../../Components/Loading/Loading';
 import NotFoundPage from '../NotFoundPage';
-import { loadLessons, loadCourses, addLesson, saveLesson} from '../../Redux/actions';
+import { loadLessons, loadCourses, addLesson, saveLesson, togglePreviewMode} from '../../Redux/actions';
 
 // Selectors
 import { getLessonsByCourse, getCourseById } from '../../Redux/selectors';
@@ -21,7 +21,8 @@ function CourseDetailPage(props) {
           addLesson, 
           loadingLessons,
           saveLesson,
-          children, } = props;
+          children,
+          togglePreviewMode, } = props;
 
   useEffect(() => {
     loadCourses();
@@ -37,12 +38,17 @@ function CourseDetailPage(props) {
   //   // return <Redirect noThrow to="/" />
   // }
 
-  console.log('COURSE', course)
+  function togglePreviewHandler() {
+    togglePreviewMode();
+  }
 
   return (
     <div className={styles.detailsWrapper}>
        <header className={styles.header}>
+         <div className={styles.headerContainer}>
           {course && course.name}
+          <button className={styles.toggleModeBtn} onClick={togglePreviewHandler}>Preview</button>
+         </div>
        </header>
        <div className={styles.content}>
          {lessons.length > 0 && (
@@ -79,7 +85,7 @@ function CourseDetailPage(props) {
          )}
          <Lesson onSubmit={title => addLesson(title, courseId)} className={styles.newLessonBtn}>
            {(edit) => (
-             <button className={styles.newLessonBtn} onClick={edit} >New Lesson</button>
+             <button className={styles.newLessonBtn} onClick={edit}>New Lesson</button>
            )}
          </Lesson>
          <div>
@@ -99,4 +105,6 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-export default connect(mapStateToProps, {loadLessons, loadCourses, addLesson, saveLesson})(CourseDetailPage);
+const mapDispatchToProps = {loadLessons, loadCourses, addLesson, saveLesson, togglePreviewMode};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CourseDetailPage);

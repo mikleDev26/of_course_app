@@ -39,8 +39,17 @@
     {
       "name": "my second lesson",
       "courseId": "5",
-      "markdown": "",
+      "markdown": "## Header\n** my new lesson **",
       "id": 2
+    },
+    {
+      "name": "fdsffsdfdsfsdfsdfsdfdsf",
+      "courseId": "5",
+      "markdown": "",
+      "id": 3
     }
+  ],
+  "users": [
+
   ]
 }
